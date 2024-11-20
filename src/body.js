@@ -28,7 +28,7 @@ const handleDelete = (id) => {
   return (
     <div>
         <div className="flex flex-col justify-center items-center bg-gray-100 min-h-screen">
-          <h1 className="text-2xl font-bold mb-4">List of Mobile names and specifications</h1>
+          <h1 className="text-2xl font-bold mb-4">User Details</h1>
             <div className="w-3/4 rounded bg-white border shadow p-6">
                 <div className='flex justify-end'>
                   <Link to = "/add"> 
