@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Header from './src/header';
 import Footer from './src/footer';
-import Body from './src/body'
+import Body from './src/body';
 import Add from './src/add';
-import Read from './src/read';
-
+import View from "./src/view";
+import Edit from "./src/edit";
 
 const AppLayout = () => {
     return (
@@ -34,8 +34,12 @@ const AppRouter = createBrowserRouter ([
         element: <Add />,
     },
     {
-        path : "/read",
-        element : <Read />,
+        path : "/view/:id",
+        element : <View />,
+    },
+    {
+      path : "/edit/:id",
+      element : <Edit />,
     },
     ],
 },
