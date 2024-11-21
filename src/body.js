@@ -4,6 +4,7 @@ import { Link, useNavigate} from 'react-router-dom';
  
 const Body = () => {
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   
 useEffect (() => {
@@ -12,6 +13,12 @@ useEffect (() => {
   .then(res => setData(res.data.data))
   .catch(err => console.log(err));
 },[])
+
+const pageHandle = (selectedPage) => {
+  if (selectedPage >= 1 && selectedPage <= data.length / 3 && selectedPage !== page
+    )
+  setPage(selectedPage)
+};
 
 const handleDelete = (id) => {
   const confirm = window.confirm("Would you like to Delete?");
@@ -47,7 +54,7 @@ const handleDelete = (id) => {
                 </thead>
                 <tbody>
                     {
-                      data.map((data, index) => (
+                      data.slice(page * 3 -3, page * 3).map((data, index) => (
                         <tr className="border border-gray-300 px-4 py-2 text-left" key={index}>
                         <td className="border border-gray-300 px-4 py-2 text-left">{data?.id}</td>
                         <td className="border border-gray-300 px-4 py-2 text-left">{data?.email}</td>
@@ -70,6 +77,17 @@ const handleDelete = (id) => {
                     </tbody>
                   </table>
           </div>
+          {data.length > 0 && (
+            <div className='p-2 m-4 flex justify-center border-solid border-gray-500 cursor-pointer'> 
+            <span onClick={() => pageHandle(page-1)}  className="px-4 py-3 border border-gray-300 cursor-pointer"> ◀</span>
+            {
+              [...Array(data.length / 3)].map((_, i) => {
+                return <span onClick={() => pageHandle(i+1)} key = {i} className={page===i+1?"px-4 py-3 border border-gray-300 cursor-pointer bg-red-500":"px-4 py-3 border border-gray-300 cursor-pointer"}>{i + 1}</span>
+              })
+            }
+            <span onClick={() => pageHandle(page+1)}  className="px-4 py-3 border border-gray-300 cursor-pointer">▶</span>
+            </div>
+          )}
         </div>
     </div>
   )
